@@ -9,14 +9,14 @@ import java.util.List;
 
 public class CSVDataFlattenModule { // this class takes the csv data and converts it into an array of linked hash-maps
 	private static final List<List<String>> List = null;
-	static String path = "data.csv";
 	BufferedReader br;
+	static String path = "data.csv";
 	List<List<String>> records = new ArrayList<>();
 	
-	public static List<List<String>> parseCSVDataToList(int csvRowCount) throws FileNotFoundException, IOException{
+	public static List<List<String>> parseCSVDataToList(int csvRowCount,String csvPath) throws FileNotFoundException, IOException{
 		List<List<String>> records = new ArrayList<>();
 		List<String> individualRecord;
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(csvPath))) {
 		    String line;
 		    int counter = 0;
 		    while ((line = br.readLine()) != null) {
@@ -27,14 +27,14 @@ public class CSVDataFlattenModule { // this class takes the csv data and convert
 		        	return records;
 		    }
 		}}
-		return records;
+		return records;//records is the initial list of strings from the csv data
 	}
 	
-	public static int findCount () {
+	public static int findCount (String filePath) {//this method finds the amount of entries in the csv file
 		List<List<String>> records = new ArrayList<>();
 		int count = 0;
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(path));
+			BufferedReader br = new BufferedReader(new FileReader(filePath));
 		     String input;
 		     count = 0;
 		     while((input = br.readLine()) != null)
@@ -53,7 +53,7 @@ public class CSVDataFlattenModule { // this class takes the csv data and convert
 	}
 	
 	public static void computeIndividualLevel (List<String> list,List<LinkedHashMap<String,Object>> finalArray){
-		if(list.size() == 4){
+		if(list.size() == 4){//this method takes a single field from the excel finds how many entries(parents with child elements) there are in a single Entry
 			createDataFor3Entries(list,finalArray);
 		}
 		if(list.size()==7) {

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import org.json.simple.JSONObject;
 
 
-public class JsonCreator {//this class takes the array of linked hash-maps and iteratively adds values to the json object
+public class JsonCreator {//this class takes the array of linked hash-maps<string,object>(key(id,name,url),value) and iteratively adds values to the json object
 	
 	public List<LinkedHashMap<String,Object>> cache = new ArrayList<LinkedHashMap<String,Object>>();//cache will contain entries already added to JSON
 
@@ -52,7 +52,7 @@ public class JsonCreator {//this class takes the array of linked hash-maps and i
 		return jsonObject;
 		}
 	
-	private boolean isChild(LinkedHashMap<String, Object> parent, LinkedHashMap<String, Object> child) {
+	private boolean isChild(LinkedHashMap<String, Object> parent, LinkedHashMap<String, Object> child) {//this method will return true if the child in the sequence is a child of the parent in the sequence
 			return child.get("URL").toString().contains(parent.get("ID").toString());
 	}
 

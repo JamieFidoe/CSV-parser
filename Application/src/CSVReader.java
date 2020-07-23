@@ -15,7 +15,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.google.gson.Gson;
 
 
 public class CSVReader {
@@ -24,6 +23,7 @@ public class CSVReader {
 	private static  FileWriter file;
 	static String str;
 	BufferedReader br;
+	static String path = "data.csv";
 	
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
@@ -32,6 +32,7 @@ public class CSVReader {
         }
 	
 	static void writeToFile(JSONObject jsonToWriteTo) throws IOException{
+		String fixedJson = jsonToWriteTo.toString().replace("\\", "");
 		Scanner in = new Scanner(System.in);
 		System.out.println("Please Select path to send JSON Object Too: ");
 		String pathToWriteTo = in.nextLine();
@@ -41,14 +42,14 @@ public class CSVReader {
 			System.out.println("File Path Not Found");
 			e.printStackTrace();
 		}
-        file.write(jsonToWriteTo.toJSONString());
+        file.write(fixedJson);
         System.out.println(("Successfully Copied JSON Object to File..."));
         file.close();
 	}
 	
 	static JSONObject createJson() throws FileNotFoundException, IOException {
-		int fieldSize = dataFlattener.findCount();
-		List<List<String>>initialObject = dataFlattener.parseCSVDataToList(fieldSize);
+		int fieldSize = dataFlattener.findCount("data.csv");
+		List<List<String>>initialObject = dataFlattener.parseCSVDataToList(fieldSize,path);
 		List<LinkedHashMap<String,Object>> dividedElements = dataFlattener.divideChildFromParentElements(initialObject);
 		JSONObject firstRow = jsonIterator.createFirstRow(dividedElements);
 		JSONObject secondRow = jsonIterator.createSecondRow(dividedElements,firstRow);
