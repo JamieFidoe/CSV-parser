@@ -16,7 +16,7 @@ import org.junit.Test;
 import junit.framework.Assert;
 
 public class CSVDataFlattenModuleTest {
-	
+
 	private CSVDataFlattenModule csvDataFlattenModule = new CSVDataFlattenModule();
 	String testPath = "testData.csv";
 
@@ -31,5 +31,5 @@ public class CSVDataFlattenModuleTest {
 		List<List<String>> testData = csvDataFlattenModule.parseCSVDataToList(13, testPath);
 		Assert.assertEquals(13, testData.size());
 	}
-	
+
 }
